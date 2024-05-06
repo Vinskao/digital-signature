@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: signature
+  datasource:
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    # url: jdbc:sqlserver://172.27.36.106:1433;databaseName=signature;trustServerCertificate=true
+    # url: ${DATASOURCE_URL:jdbc:sqlserver://sql_edge:1433;databaseName=signature;trustServerCertificate=true}
+    url: ${DATASOURCE_URL:jdbc:sqlserver://localhost:1433;databaseName=signature;trustServerCertificate=true}
+    username: ${DATASOURCE_USERNAME:SA}
+    password: ${DATASOURCE_PASSWORD:Wawi247525=}
+  devtools:
+    restart:
+      enabled: true
+logging:
+  level:
+    root: INFO # Set the default logging level to INFO for all packages
+    org.springframework: DEBUG
+    org.springframework.web: DEBUG # Detailed logging for Spring Web activities
+    org.springframework.data: DEBUG # Detailed logging for Spring Data
+    com.mli.signature: DEBUG # Replace 'com.mli.signature' with your base package name for detailed application-specific logs
+    org.mybatis.spring: DEBUG # Detailed logging for MyBatis-Spring integration
+    org.springframework.transaction: DEBUG # Detailed logging for transaction management
+    org.springframework.boot.autoconfigure: DEBUG # Detailed logging for auto-configuration classes
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    persistAuthorization: true
+
+server:
+  port: 8080
+  servlet:
+    session:
+      cookie:
+        http-only: true
+# mybatis:
+#   mapper-locations: classpath:/mapper/*.xml
