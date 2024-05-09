@@ -16,21 +16,23 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import com.mli.signature.module.signature.domain.Entity;
+import com.mli.signature.module.signature.domain.Key;
 
 @Component
 public class RSAUtil {
-	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+    private String encryptionAlgorithm = "RSA";
+    private String signAlgorithm = "MD5withRSA";
 
     /**
      * 生成对应的 与我通信的公钥和私钥
      * 
      * @return
      */
-    public void createRSAKey(Entity entity) {
+    public void createRSAKey(Key entity) {
         try {
             // 创建KeyPairGenerator 指定算法为RSA，用于生成对应的公钥和私钥
-            KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
+            KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance(encryptionAlgorithm);
             // 指定字节长度
             keyPairGenerator.initialize(1024);
 
@@ -73,11 +75,11 @@ public class RSAUtil {
             // PKCS8EncodedKeySpec 是 PKCS#8标准作为密钥规范管理的编码格式
             PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(keyBytes);
             // 实例化KeyFactory,指定为加密算法 为 RSA
-            KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+            KeyFactory keyFactory = KeyFactory.getInstance(encryptionAlgorithm);
             // 获得PrivateKey对象
             PrivateKey privateKey1 = keyFactory.generatePrivate(keySpec);
             // 用私钥对信息生成数字签名，指定签名算法为 MD5withRSA
-            Signature signature = Signature.getInstance("MD5withRSA");
+            Signature signature = Signature.getInstance(signAlgorithm);
             // 初始化签名
             signature.initSign(privateKey1);
             // 数据body带入
@@ -108,11 +110,11 @@ public class RSAUtil {
             // X509EncodedKeySpec是基于X.509证书提前的公钥，一种java秘钥规范
             X509EncodedKeySpec x509EncodedKeySpec = new X509EncodedKeySpec(keyBytes);
             // 实例化KeyFactory,指定为加密算法 为 RSA
-            KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+            KeyFactory keyFactory = KeyFactory.getInstance(encryptionAlgorithm);
             // 获取publicKey对象
             PublicKey publicKey1 = keyFactory.generatePublic(x509EncodedKeySpec);
             // 用私钥对信息生成数字签名，指定签名算法为 MD5withRSA
-            Signature signature = Signature.getInstance("MD5withRSA");
+            Signature signature = Signature.getInstance(signAlgorithm);
             // 带入公钥进行验证
             signature.initVerify(publicKey1);
             // 数据body带入

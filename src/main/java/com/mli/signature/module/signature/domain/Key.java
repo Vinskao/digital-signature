@@ -2,7 +2,7 @@ package com.mli.signature.module.signature.domain;
 
 import java.util.Objects;
 
-public class Entity {
+public class Key {
 
     /**
      * 公钥
@@ -13,10 +13,10 @@ public class Entity {
      **/
     private String privateKey;
 
-    public Entity() {
+    public Key() {
     }
 
-    public Entity(String publicKey, String privateKey) {
+    public Key(String publicKey, String privateKey) {
         this.publicKey = publicKey;
         this.privateKey = privateKey;
     }
@@ -37,12 +37,12 @@ public class Entity {
         this.privateKey = privateKey;
     }
 
-    public Entity publicKey(String publicKey) {
+    public Key publicKey(String publicKey) {
         setPublicKey(publicKey);
         return this;
     }
 
-    public Entity privateKey(String privateKey) {
+    public Key privateKey(String privateKey) {
         setPrivateKey(privateKey);
         return this;
     }
@@ -51,10 +51,10 @@ public class Entity {
     public boolean equals(Object o) {
         if (o == this)
             return true;
-        if (!(o instanceof Entity)) {
+        if (!(o instanceof Key)) {
             return false;
         }
-        Entity entity = (Entity) o;
+        Key entity = (Key) o;
         return Objects.equals(publicKey, entity.publicKey) && Objects.equals(privateKey, entity.privateKey);
     }
 

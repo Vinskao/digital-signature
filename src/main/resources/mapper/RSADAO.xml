@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.mli.signature.module.signature.dao.RSADAO">
+    <resultMap id="RSAResultMap" type="com.mli.signature.module.signature.domain.RSAEntity">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="name" column="name"/>
+        <result property="pub" column="pub"/>
+        <result property="signature" column="signature"/>
+        <result property="data" column="data"/>
+    </resultMap>
+    
+    <insert id="insertRSA">
+        INSERT INTO RSAEntity (username, name, pub, signature, data)
+        VALUES (#{username}, #{name}, #{pub}, #{signature}, #{data});
+    </insert>
+
+    <select id="findByUsername" resultType="com.mli.signature.module.signature.domain.RSAEntity">
+        SELECT * FROM RSAEntity WHERE username = #{name}
+    </select>
+
+    <select id="findByUsernameAndFileName" resultType="com.mli.signature.module.signature.domain.RSAEntity">
+        SELECT * FROM RSAEntity
+        WHERE username = #{username} AND name = #{name}
+    </select>
+    
+
+</mapper>

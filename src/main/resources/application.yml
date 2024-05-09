@@ -14,6 +14,7 @@ spring:
 logging:
   level:
     root: INFO # Set the default logging level to INFO for all packages
+    org.mybatis: TRACE
     org.springframework: DEBUG
     org.springframework.web: DEBUG # Detailed logging for Spring Web activities
     org.springframework.data: DEBUG # Detailed logging for Spring Data
@@ -34,5 +35,7 @@ server:
     session:
       cookie:
         http-only: true
-# mybatis:
-#   mapper-locations: classpath:/mapper/*.xml
+
+# 设置正确的Mapper扫描路
+mybatis:
+  mapper-locations: classpath:/mapper/*.xml
