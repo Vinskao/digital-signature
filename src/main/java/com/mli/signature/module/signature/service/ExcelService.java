@@ -24,6 +24,7 @@ import java.security.PrivateKey;
 public class ExcelService {
     @Autowired
     private DigitalSignatureUtils signatureUtils;
+
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     /**
@@ -33,11 +34,10 @@ public class ExcelService {
      * @return 讀取到的Workbook
      * @throws IOException 如果文件讀取失敗
      */
-    public Workbook readExcel(String filePath) throws IOException {
-        logger.info("Attempting to read an Excel file from: {}", filePath);
-        FileInputStream fileInputStream = new FileInputStream(filePath);
-        Workbook workbook = new XSSFWorkbook(fileInputStream);
-        logger.debug("Excel file read successfully from: {}", filePath);
+    public Workbook readExcel(InputStream inputStream) throws IOException {
+        logger.info("Attempting to read an Excel file from: {}", inputStream);
+        Workbook workbook = new XSSFWorkbook(inputStream);
+        logger.debug("Excel file read successfully from: {}", inputStream);
         return workbook;
     }
 
@@ -66,7 +66,7 @@ public class ExcelService {
      * @throws Exception 如果簽名或保存過程出錯
      */
     @Operation(summary = "Signs an Excel file using a private key and saves the signed version to the specified path.")
-    public void signAndSaveExcel(String inputPath, String outputPath, PrivateKey privateKey) throws Exception {
+    public void signAndSaveExcel(InputStream inputPath, String outputPath, PrivateKey privateKey) throws Exception {
         logger.info("Signing and saving Excel file. Input: {}, Output: {}", inputPath, outputPath);
         Workbook workbook = readExcel(inputPath);
         Sheet sheet = workbook.getSheetAt(0);

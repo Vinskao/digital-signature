@@ -1,18 +1,22 @@
 package com.mli.signature.module.signature.controller;
 
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.security.PrivateKey;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.mli.signature.module.signature.service.ExcelService;
 
 import io.swagger.v3.oas.annotations.Operation;
-
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.security.PrivateKey;
 
 /**
  * 控制器用於處理有關Excel文件的操作，包括上傳和簽署Excel文件。
@@ -52,7 +56,11 @@ public class ExcelController {
         try {
             String outputPath = tempFile.toAbsolutePath().toString().replace(".xlsx", "-signed.xlsx");
             logger.debug("Signing the Excel file.");
-            excelService.signAndSaveExcel(tempFile.toAbsolutePath().toString(), outputPath, privateKey);
+
+            // 將文件路徑轉換為 InputStream
+            InputStream inputStream = Files.newInputStream(tempFile);
+
+            excelService.signAndSaveExcel(inputStream, outputPath, privateKey);
             logger.info("File signed successfully. Available for download at: {}", outputPath);
             return "File signed successfully. Download at: " + outputPath;
         } catch (Exception e) {
