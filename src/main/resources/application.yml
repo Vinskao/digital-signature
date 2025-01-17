@@ -3,18 +3,17 @@ spring:
     name: signature
   datasource:
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-    # url: jdbc:sqlserver://172.27.36.106:1433;databaseName=signature;trustServerCertificate=true
+    # url: jdbc:sqlserver://17**106:1433;databaseName=signature;trustServerCertificate=true
     # url: ${DATASOURCE_URL:jdbc:sqlserver://sql_edge:1433;databaseName=signature;trustServerCertificate=true}
-    url: ${DATASOURCE_URL:jdbc:sqlserver://localhost:1433;databaseName=signature;trustServerCertificate=true}
-    username: ${DATASOURCE_USERNAME:SA}
-    password: ${DATASOURCE_PASSWORD:Wawi247525=}
+    # url: ${DATASOURCE_URL:jdbc:sqlserver://localhost:1433;databaseName=signature;trustServerCertificate=true}
+    # username: ${DATASOURCE_USERNAME:SA}
+    # password: ${DATASOURCE_PASSWORD:W**5=}
   devtools:
     restart:
       enabled: true
 logging:
   level:
     root: INFO # Set the default logging level to INFO for all packages
-    org.mybatis: TRACE
     org.springframework: DEBUG
     org.springframework.web: DEBUG # Detailed logging for Spring Web activities
     org.springframework.data: DEBUG # Detailed logging for Spring Data
@@ -35,7 +34,5 @@ server:
     session:
       cookie:
         http-only: true
-
-# 设置正确的Mapper扫描路
-mybatis:
-  mapper-locations: classpath:/mapper/*.xml
+# mybatis:
+#   mapper-locations: classpath:/mapper/*.xml
