@@ -27,6 +27,11 @@
         <version>1.68</version>
     </dependency>
     ```
+swagger: `http://localhost:8080/swagger-ui/index.html#/`
+
+將二進制 key 內容轉換成人類可讀形式：
+`openssl rsa -in privateKey.txt -text`
+`openssl rsa -pubin -in publicKey.txt -text -noout`
 
 2.  數位簽章工具類
     使用前述提供的 DigitalSignatureUtils 類，該類已經包含了基本的數位簽章和驗證功能。
